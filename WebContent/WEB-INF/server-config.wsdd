@@ -1,0 +1,139 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value="/Users/kalgi/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/eBayWebServices/WEB-INF/attachments"/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:service name="AccountServices" provider="java:RPC" style="wrapped" use="literal">
+  <ns2:operation name="checkout" qname="ns1:checkout" returnQName="ns1:checkoutReturn" returnType="xsd:boolean" soapAction="" xmlns:ns1="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns2:parameter qname="ns1:user_id" type="xsd:int"/>
+  </ns2:operation>
+  <ns1:operation name="addUser" qname="ns2:addUser" returnQName="ns2:addUserReturn" returnType="xsd:boolean" soapAction="" xmlns:ns2="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns2:username" type="xsd:string"/>
+   <ns1:parameter qname="ns2:f_name" type="xsd:string"/>
+   <ns1:parameter qname="ns2:l_name" type="xsd:string"/>
+   <ns1:parameter qname="ns2:email" type="xsd:string"/>
+   <ns1:parameter qname="ns2:secret" type="xsd:string"/>
+   <ns1:parameter qname="ns2:last_login" type="xsd:date"/>
+  </ns1:operation>
+  <ns1:operation name="authenticate" qname="ns3:authenticate" returnQName="ns3:authenticateReturn" returnType="xsd:boolean" soapAction="" xmlns:ns3="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns3:username" type="xsd:string"/>
+   <ns1:parameter qname="ns3:password" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="sendUserNotifications" qname="ns4:sendUserNotifications" returnQName="ns4:sendUserNotificationsReturn" returnType="xsd:boolean" soapAction="" xmlns:ns4="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns4:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="removeFromCart" qname="ns5:removeFromCart" returnQName="ns5:removeFromCartReturn" returnType="xsd:boolean" soapAction="" xmlns:ns5="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns5:user_id" type="xsd:int"/>
+   <ns1:parameter qname="ns5:item_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendCartAvailability" qname="ns6:sendCartAvailability" returnQName="ns6:sendCartAvailabilityReturn" returnType="xsd:boolean" soapAction="" xmlns:ns6="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns6:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendUserCartItems" qname="ns7:sendUserCartItems" returnQName="ns7:sendUserCartItemsReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns7:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendAddresses" qname="ns8:sendAddresses" returnQName="ns8:sendAddressesReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns8:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendUserSearchResults" qname="ns9:sendUserSearchResults" returnQName="ns9:sendUserSearchResultsReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:searchString" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="sendSearchResults" qname="ns10:sendSearchResults" returnQName="ns10:sendSearchResultsReturn" returnType="xsd:string" soapAction="" xmlns:ns10="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns10:searchString" type="xsd:string"/>
+   <ns1:parameter qname="ns10:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendUserSuggestions" qname="ns11:sendUserSuggestions" returnQName="ns11:sendUserSuggestionsReturn" returnType="xsd:string" soapAction="" xmlns:ns11="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns11:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendBidDetails" qname="ns12:sendBidDetails" returnQName="ns12:sendBidDetailsReturn" returnType="xsd:string" soapAction="" xmlns:ns12="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns12:item_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="sendItemDetails" qname="ns13:sendItemDetails" returnQName="ns13:sendItemDetailsReturn" returnType="xsd:string" soapAction="" xmlns:ns13="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns13:item_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="addItemToCart" qname="ns14:addItemToCart" returnQName="ns14:addItemToCartReturn" returnType="xsd:boolean" soapAction="" xmlns:ns14="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns14:user_id" type="xsd:int"/>
+   <ns1:parameter qname="ns14:item_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="addUserAddress" qname="ns15:addUserAddress" returnQName="ns15:addUserAddressReturn" returnType="xsd:boolean" soapAction="" xmlns:ns15="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns15:user_id" type="xsd:int"/>
+   <ns1:parameter qname="ns15:st_address" type="xsd:string"/>
+   <ns1:parameter qname="ns15:apt" type="xsd:string"/>
+   <ns1:parameter qname="ns15:city" type="xsd:string"/>
+   <ns1:parameter qname="ns15:state" type="xsd:string"/>
+   <ns1:parameter qname="ns15:zip" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="sendConditions" qname="ns16:sendConditions" returnQName="ns16:sendConditionsReturn" returnType="xsd:string" soapAction="" xmlns:ns16="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="publishSale" qname="ns17:publishSale" returnQName="ns17:publishSaleReturn" returnType="xsd:boolean" soapAction="" xmlns:ns17="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns17:seller" type="xsd:int"/>
+   <ns1:parameter qname="ns17:item" type="xsd:int"/>
+   <ns1:parameter qname="ns17:condition" type="xsd:int"/>
+   <ns1:parameter qname="ns17:sale_price" type="xsd:float"/>
+   <ns1:parameter qname="ns17:title" type="xsd:string"/>
+   <ns1:parameter qname="ns17:description" type="xsd:string"/>
+   <ns1:parameter qname="ns17:is_bid" type="xsd:boolean"/>
+   <ns1:parameter qname="ns17:sale_qty" type="xsd:int"/>
+   <ns1:parameter qname="ns17:active" type="xsd:boolean"/>
+  </ns1:operation>
+  <ns1:operation name="updateLastLogin" qname="ns18:updateLastLogin" returnQName="ns18:updateLastLoginReturn" returnType="xsd:boolean" soapAction="" xmlns:ns18="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns18:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="fetchUser" qname="ns19:fetchUser" returnQName="ns19:fetchUserReturn" returnType="xsd:string" soapAction="" xmlns:ns19="http://services" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns19:username" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="authenticate sendAddresses sendUserSuggestions addUser sendCartAvailability updateLastLogin sendBidDetails publishSale addItemToCart sendSearchResults sendUserNotifications removeFromCart sendConditions sendItemDetails addUserAddress fetchUser sendUserCartItems checkout sendUserSearchResults"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="AccountServices"/>
+  <ns1:parameter name="className" value="services.AccountServices"/>
+  <ns1:parameter name="wsdlServicePort" value="AccountServices"/>
+  <ns1:parameter name="schemaQualified" value="http://services"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://services"/>
+  <ns1:parameter name="wsdlServiceElement" value="AccountServicesService"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>
